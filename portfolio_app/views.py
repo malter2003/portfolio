@@ -6,7 +6,9 @@ from django.views import generic
 from django.contrib import messages
 
 def index(request):
-    return render(request, 'portfolio_app/index.html')
+    student_active_portfolios = Student.objects.select_related('portfolio').all().filter(portfolio__is_active=True)
+    print("active portfolio query set", student_active_portfolios)
+    return render( request, 'portfolio_app/index.html', {'student_active_portfolios':student_active_portfolios})
 
 # Create your views here.
 class StudentListView(generic.ListView):
