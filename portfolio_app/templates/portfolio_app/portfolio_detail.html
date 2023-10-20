@@ -7,5 +7,21 @@
 <p><strong>Portfolio Active:</strong> {{ portfolio.is_active }}</p>
 <p><strong>About:</strong> {{ portfolio.student.name }}</p>
 <p><strong>Contact Email:</strong> {{ portfolio.student.email }}</p>
+<br>
+
+<h2>Project List</h2>
+<a class="btn btn-primary" href="{% url 'create_project' portfolio.id %}" role="button">New</a>
+{% if project_list %}
+<ul>
+   {% for project in project_list %}
+   <li>
+      {{ project.title }}:
+      <a class="btn btn-primary" href="{{ project.get_absolute_url }}" role="button">View</a>
+      <a class="btn btn-danger" href="{% url 'project-delete' pk=project.id %}" role="button">Delete</a>
+      <a class="btn btn-secondary" href="{% url 'project-update' pk=project.id %}" role="button">Update</a>
+   </li>
+   {% endfor %}
+</ul>
+{% endif %}
 
 {% endblock %}
